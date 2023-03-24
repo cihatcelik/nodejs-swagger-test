@@ -42,6 +42,26 @@ app.use(errorHandler);
 //   next(createError(404));
 // });
 
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+swaggerDocument = require('./swagger.json');
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// const options = {
+//   swaggerDefinition: {
+//     swagger: "2.0",
+//     info: {
+//       title: "SINAN AY BITIRME TEZI API",
+//       description: "Sinan AY Yüksek Lisans Bitirme Tezi için geliştirilmiştir.",
+//       version: "1.0.0"
+//     },
+//     basePath: "/"
+//   },
+//   apis: ["./routes/*.js"]
+// };
+
+// const swaggerSpec = swaggerJSDoc(options);
+
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
 // error handler

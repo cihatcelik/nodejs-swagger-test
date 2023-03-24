@@ -6,12 +6,80 @@ const validateRequest = require('../middleware/validate-request');
 const accountService = require('../services/account.service');
 const authorize = require('../middleware/authorize');
 
-
+/**
+ * @swagger
+ * /register:
+ *   post:
+ *     summary: Kullanıcı bilgilerini getir
+ *     description: Kullanıcının benzersiz kimliği kullanılarak bilgilerini getirir
+ *     parameters:
+ *       - name: id
+ *         description: Kullanıcının benzersiz kimliği
+ *         in: path
+ *         required: true
+ *         type: string
+ *     responses:
+ *       '200':
+ *         description: Başarılı yanıt
+ *         schema:
+ *           type: object
+ *           properties:
+ *             name:
+ *               type: string
+ *             email:
+ *               type: string
+ */
 router.post('/register',registerSchema,register);
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: Kullanıcı bilgilerini getir
+ *     description: Kullanıcının benzersiz kimliği kullanılarak bilgilerini getirir
+ *     parameters:
+ *       - name: id
+ *         description: Kullanıcının benzersiz kimliği
+ *         in: path
+ *         required: true
+ *         type: string
+ *     responses:
+ *       '200':
+ *         description: Başarılı yanıt
+ *         schema:
+ *           type: object
+ *           properties:
+ *             name:
+ *               type: string
+ *             email:
+ *               type: string
+ */
 router.post('/login',loginSchema,login);
-router.post('/verify',verifySchema,verify);
+
+/**
+ * @swagger
+ * /revoke-token:
+ *   post:
+ *     summary: Kullanıcı bilgilerini getir
+ *     description: Kullanıcının benzersiz kimliği kullanılarak bilgilerini getirir
+ *     parameters:
+ *       - name: id
+ *         description: Kullanıcının benzersiz kimliği
+ *         in: path
+ *         required: true
+ *         type: string
+ *     responses:
+ *       '200':
+ *         description: Başarılı yanıt
+ *         schema:
+ *           type: object
+ *           properties:
+ *             name:
+ *               type: string
+ *             email:
+ *               type: string
+ */
 router.post('/revoke-token', authorize(), revokeTokenSchema, revokeToken);
-router.post('/refresh-token', refreshToken);
+
 
 module.exports = router;
 

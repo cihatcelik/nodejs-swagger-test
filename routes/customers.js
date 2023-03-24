@@ -8,24 +8,24 @@ let customers = [
 ];
 
 
-router.get('/customers', (req, res) => {
+router.get('/get-all', (req, res) => {
   res.json(customers);
 });
 
-router.post('/customers', (req, res) => {
+router.post('/add-customer', (req, res) => {
   const customer = req.body;
   customers.push(customer);
   res.send('Customer added successfully');
 });
 
-router.delete('/customers/:id', (req, res) => {
+router.delete('/delete-customer/:id', (req, res) => {
   const { id } = req.params;
   customers = customers.filter((customer) => customer.id !== parseInt(id));
   res.send('Customer deleted successfully');
 });
 
 
-router.put('/customers/:id', (req, res) => {
+router.put('/edit-customer/:id', (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
   const customer = customers.find((customer) => customer.id === parseInt(id));
