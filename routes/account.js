@@ -80,8 +80,14 @@ router.post('/login',loginSchema,login);
  */
 router.post('/revoke-token', authorize(), revokeTokenSchema, revokeToken);
 
+router.get('/get-all-accounts',authorize(),getAllAccounts);
 
 module.exports = router;
+
+async function getAllAccounts(req,res,next){
+    var result = await accountService.getAllAccounts();
+    res.json(result);
+}
 
 function registerSchema(req, res, next) {
     const schema = Joi.object({

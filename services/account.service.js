@@ -11,10 +11,14 @@ module.exports = {
     login,
     verifyAccount,
     revokeToken,
-    refreshToken
+    refreshToken,
+    getAllAccounts
 
 };
 
+async function getAllAccounts(){
+   return  await db.Account.find();
+}
 async function login({ email, password, ipAddress }) {
     const account = await db.Account.findOne({ email });
 

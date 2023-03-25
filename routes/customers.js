@@ -1,41 +1,59 @@
 var express = require('express');
 var router = express.Router();
+const customersService = require('../services/customers.service');
+const Joi = require('joi');
 
-let customers = [
-  { id: 1, name: 'John Doe' },
-  { id: 2, name: 'Jane Doe' },
-  { id: 3, name: 'Bob Smith' },
-];
+const validateRequest = require('../middleware/validate-request');
 
-
+//ok
 router.get('/get-all', (req, res) => {
-  res.json(customers);
+  customersService.gelAllCustomers(result=>{
+    res.json(result);
+  });
 });
 
-router.post('/add-customer', (req, res) => {
+function customerModelSchema(req, res, next) {
+  const schema = Joi.object({
+      customerFirstName: Joi.string().required(),
+      customerLastName: Joi.string().required(),
+      customerCity: Joi.string().required()
+  });
+  validateRequest(req, next, schema);
+}
+//ok
+router.post('/add-customer',customerModelSchema, (req, res) => {
   const customer = req.body;
-  customers.push(customer);
-  res.send('Customer added successfully');
+  customersService.addCustomer(req.body,result=>{
+    res.json({result:result});
+  })
 });
 
 router.delete('/delete-customer/:id', (req, res) => {
   const { id } = req.params;
-  customers = customers.filter((customer) => customer.id !== parseInt(id));
-  res.send('Customer deleted successfully');
+  customersService.deleteCustomer(id,(result)=>{
+    res.json({result:result});
+  })
+
 });
 
 
-router.put('/edit-customer/:id', (req, res) => {
+router.put('/edit-customer/:id', customerModelSchema,(req, res) => {
   const { id } = req.params;
   const { name } = req.body;
-  const customer = customers.find((customer) => customer.id === parseInt(id));
-  if (!customer) {
-    res.status(404).send('Customer not found');
-  } else {
-    customer.name = name;
-    res.send('Customer updated successfully');
-  }
+
+
+  customersService.editCustomer(id,req.body,result=>{
+    res.json({result:result});
+  })
 });
+
+
+router.get('/get-customer/:id',(req,res)=>{
+  const { id } = req.params;
+  customersService.getCustomerById(id,(result)=>{
+    res.json(result);
+  })
+})
 
 
 

@@ -1,488 +1,508 @@
 {
-    "openapi": "3.0.3",
-    "info": {
-      "title": "SINAN AY - YUKSEK LISANS TEST OTOMASYON API",
-      "description": "Bu API, Sinan Ay Yüksek Lisans Bitirme Tezi projesi olan test otomasyonu için geliştirilmiştir.",
-      "version": "1.0.11"
+  "openapi": "3.0.3",
+  "info": {
+    "title": "SINAN AY - YUKSEK LISANS TEST OTOMASYON API",
+    "description": "Bu API, Sinan Ay Yüksek Lisans Bitirme Tezi projesi olan test otomasyonu için geliştirilmiştir.",
+    "version": "1.0.11"
+  },
+  "servers": [
+    {
+      "url": "localhost:4002"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Account",
+      "description": "Kullanıcı yetkilendirme işlemleri"
     },
-    "servers": [
-      {
-        "url": "localhost:4002"
+    {
+      "name": "Customers",
+      "description": "Müşteri İşlemleri"
+    }
+  ],
+  "paths": {
+    "/account/login": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "Giriş",
+        "description": "Giriş",
+        "operationId": "loginRequest",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          }
+        }
       }
-    ],
-    "tags": [
-      {
-        "name": "Account",
-        "description": "Kullanıcı yetkilendirme işlemleri"
-      },
-      {
-        "name": "Customers",
-        "description": "Müşteri İşlemleri"
+    },
+    "/account/register": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "Kayıt Ol",
+        "description": "Kayıt Ol",
+        "operationId": "registerRequest",
+        "requestBody": {
+          "description": "Update an existent pet in the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterResponse"
+                }
+              }
+            }
+          }
+        }
       }
-    ],
-    "paths": {
-      "/account/login": {
-        "post": {
-          "tags": [
-            "Account"
-          ],
-          "summary": "Giriş",
-          "description": "Giriş",
-          "operationId": "loginRequest",
-          "requestBody": {
+    },
+    "/account/revoke-token": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "Çıkış",
+        "description": "Çıkış",
+        "operationId": "revokeTokenRequest",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RevokeTokenModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoginModel"
-                }
-              }
-            },
-            "required": true
-          },
-          "responses": {
-            "200": {
-              "description": "Successful operation",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/LoginResponse"
-                  }
+                  "$ref": "#/components/schemas/RevokeTokenResponse"
                 }
               }
             }
           }
         }
-      },
-      "/account/register": {
-        "post": {
-          "tags": [
-            "Account"
-          ],
-          "summary": "Kayıt Ol",
-          "description": "Kayıt Ol",
-          "operationId": "registerRequest",
-          "requestBody": {
-            "description": "Update an existent pet in the store",
+      }
+    },
+    "/account/get-all-accounts": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "Sistemdeki Kayıtlı Hesaplar",
+        "description": "Sistemdeki Kayıtlı hesaplar",
+        "operationId": "getAllAccountsRequest",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegisterModel"
-                }
-              }
-            },
-            "required": true
-          },
-          "responses": {
-            "200": {
-              "description": "Successful operation",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/RegisterResponse"
-                  }
+                  "$ref": "#/components/schemas/AccountsResponse"
                 }
               }
             }
           }
         }
-      },
-      "/account/revoke-token": {
-        "post": {
-          "tags": [
-            "Account"
-          ],
-          "summary": "Çıkış",
-          "description": "Çıkış",
-          "operationId": "revokeTokenRequest",
-          "requestBody": {
+      }
+    },
+    "/customers/get-all": {
+      "get": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Tüm Müşterileri Getirir",
+        "description": "Tüm Müşterileri Getirir",
+        "operationId": "findPetsByStatus",
+        "responses": {
+          "200": {
+            "description": "successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RevokeTokenModel"
-                }
-              }
-            },
-            "required": true
-          },
-          "responses": {
-            "200": {
-              "description": "Successful operation",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/RevokeTokenResponse"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AccountsResponse"
                   }
                 }
               }
             }
           }
-        }
-      },
-      "/customers/get-all": {
-        "get": {
-          "tags": [
-            "Customers"
-          ],
-          "summary": "Finds Pets by status",
-          "description": "Multiple status values can be provided with comma separated strings",
-          "operationId": "findPetsByStatus",
-          "parameters": [
-            {
-              "name": "status",
-              "in": "query",
-              "description": "Status values that need to be considered for filter",
-              "required": false,
-              "explode": true,
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/customers/get-customer/{id}": {
+      "get": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Müşteriyi Getirir",
+        "description": "Müşteriyi Getirir",
+        "operationId": "jdhfjdh",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of pet to return",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountsResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/customers/add-customer": {
+      "post": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Müşteri Ekler",
+        "description": "Müşteri Ekler",
+        "operationId": "findPetsByTags",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomersResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/delete-customer/{id}": {
+      "delete": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Müşteri Siler",
+        "description": "Müşteri Siler",
+        "operationId": "getPetById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of pet to return",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomersResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/edit-customer/{id}": {
+      "put": {
+        "tags": [
+          "Customers"
+        ],
+        "summary": "Müşteri Bilgilerini Düzenler",
+        "description": "",
+        "operationId": "uploadFile",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of pet to update",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/octet-stream": {
               "schema": {
                 "type": "string",
-                "default": "available",
-                "enum": [
-                  "available",
-                  "pending",
-                  "sold"
-                ]
+                "format": "binary"
               }
             }
-          ],
-          "responses": {
-            "200": {
-              "description": "successful operation",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/LoginModel"
-                    }
-                  }
-                },
-                "application/xml": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/LoginModel"
-                    }
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Invalid status value"
-            }
-          },
-          "security": [
-            {
-              "petstore_auth": [
-                "write:pets",
-                "read:pets"
-              ]
-            }
-          ]
-        }
-      },
-      "/customers/add-customer": {
-        "post": {
-          "tags": [
-            "Customers"
-          ],
-          "summary": "Finds Pets by tags",
-          "description": "Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.",
-          "operationId": "findPetsByTags",
-          "parameters": [
-            {
-              "name": "tags",
-              "in": "query",
-              "description": "Tags to filter by",
-              "required": false,
-              "explode": true,
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "successful operation",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/LoginModel"
-                    }
-                  }
-                },
-                "application/xml": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/LoginModel"
-                    }
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Invalid tag value"
-            }
-          },
-          "security": [
-            {
-              "petstore_auth": [
-                "write:pets",
-                "read:pets"
-              ]
-            }
-          ]
-        }
-      },
-      "/delete-customer/{id}": {
-        "delete": {
-          "tags": [
-            "Customers"
-          ],
-          "summary": "Find pet by ID",
-          "description": "Returns a single pet",
-          "operationId": "getPetById",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID of pet to return",
-              "required": true,
-              "schema": {
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "successful operation",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/LoginModel"
-                  }
-                },
-                "application/xml": {
-                  "schema": {
-                    "$ref": "#/components/schemas/LoginModel"
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Invalid ID supplied"
-            },
-            "404": {
-              "description": "Pet not found"
-            }
-          },
-          "security": [
-            {
-              "api_key": []
-            },
-            {
-              "petstore_auth": [
-                "write:pets",
-                "read:pets"
-              ]
-            }
-          ]
-        }
-      },
-      "/edit-customer/{id}": {
-        "put": {
-          "tags": [
-            "Customers"
-          ],
-          "summary": "uploads an image",
-          "description": "",
-          "operationId": "uploadFile",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID of pet to update",
-              "required": true,
-              "schema": {
-                "type": "integer",
-                "format": "int64"
-              }
-            },
-            {
-              "name": "additionalMetadata",
-              "in": "query",
-              "description": "Additional Metadata",
-              "required": false,
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
-          "requestBody": {
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
             "content": {
-              "application/octet-stream": {
+              "application/json": {
                 "schema": {
-                  "type": "string",
-                  "format": "binary"
+                  "$ref": "#/components/schemas/CustomersResponse"
                 }
               }
             }
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "LoginModel": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
           },
-          "responses": {
-            "200": {
-              "description": "successful operation",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/LoginModel"
-                  }
-                }
-              }
-            }
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "CustomerModel": {
+        "type": "object",
+        "properties": {
+          "customerFirstName": {
+            "type": "string"
           },
-          "security": [
-            {
-              "petstore_auth": [
-                "write:pets",
-                "read:pets"
-              ]
-            }
-          ]
+          "customerLastName": {
+            "type": "string"
+          },
+          "customerCity": {
+            "type": "string"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "isVerified": {
+            "type": "boolean"
+          },
+          "success": {
+            "type": "boolean"
+          },
+          "credentials": {
+            "type": "object"
+          }
+        }
+      },
+      "RegisterModel": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "confirmPassword": {
+            "type": "string"
+          },
+          "acceptTerms": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AccountsResponse": {
+        "type": "object"
+      },
+      "CustomersResponse": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "boolean"
+          }
+        }
+      },
+      "RegisterResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "code": {
+            "type": "number"
+          }
+        }
+      },
+      "RevokeTokenModel": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "RevokeTokenResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
         }
       }
     },
-    "components": {
-      "schemas": {
-        "LoginModel": {
-          "type": "object",
-          "properties": {
-            "email": {
-              "type": "string"
-            },
-            "password": {
-              "type": "string"
+    "requestBodies": {
+      "Pet": {
+        "description": "Pet object that needs to be added to the store",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/LoginModel"
             }
-          }
-        },
-        "LoginResponse": {
-          "type": "object",
-          "properties": {
-            "isVerified": {
-              "type": "boolean"
-            },
-            "success": {
-              "type": "boolean"
-            },
-            "credentials": {
-              "type": "object"
-            }
-          }
-        },
-        "RegisterModel": {
-          "type": "object",
-          "properties": {
-            "firstName": {
-              "type": "string"
-            },
-            "lastName": {
-              "type": "string"
-            },
-            "email": {
-              "type": "string"
-            },
-            "password": {
-              "type": "string"
-            },
-            "confirmPassword": {
-              "type": "string"
-            },
-            "acceptTerms": {
-              "type": "boolean"
-            }
-          }
-        },
-        "RegisterResponse": {
-          "type": "object",
-          "properties": {
-            "success": {
-              "type": "boolean"
-            },
-            "code": {
-              "type": "number"
-            }
-          }
-        },
-        "RevokeTokenModel": {
-          "type": "object",
-          "properties": {
-            "token": {
-              "type": "string"
-            }
-          }
-        },
-        "RevokeTokenResponse": {
-          "type": "object",
-          "properties": {
-            "message": {
-              "type": "string"
+          },
+          "application/xml": {
+            "schema": {
+              "$ref": "#/components/schemas/LoginModel"
             }
           }
         }
       },
-      "requestBodies": {
-        "Pet": {
-          "description": "Pet object that needs to be added to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginModel"
-              }
-            },
-            "application/xml": {
-              "schema": {
+      "UserArray": {
+        "description": "List of user object",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
                 "$ref": "#/components/schemas/LoginModel"
               }
             }
           }
-        },
-        "UserArray": {
-          "description": "List of user object",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/LoginModel"
-                }
-              }
+        }
+      }
+    },
+    "securitySchemes": {
+      "petstore_auth": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "https://petstore3.swagger.io/oauth/authorize",
+            "scopes": {
+              "write:pets": "modify pets in your account",
+              "read:pets": "read your pets"
             }
           }
         }
       },
-      "securitySchemes": {
-        "petstore_auth": {
-          "type": "oauth2",
-          "flows": {
-            "implicit": {
-              "authorizationUrl": "https://petstore3.swagger.io/oauth/authorize",
-              "scopes": {
-                "write:pets": "modify pets in your account",
-                "read:pets": "read your pets"
-              }
-            }
-          }
-        },
-        "api_key": {
-          "type": "apiKey",
-          "name": "api_key",
-          "in": "header"
-        }
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
       }
     }
   }
+}
