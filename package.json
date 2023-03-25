@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+     "start": "nodemon ./bin/www"
+
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -23,6 +24,8 @@
   },
   "devDependencies": {
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^4.6.2"
+    "swagger-ui-express": "^4.6.2",
+    "webpack": "^5.76.3",
+    "webpack-cli": "^5.0.1"
   }
 }
